@@ -15,6 +15,8 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend/react
+    env:
+      DOCKERHUB_ACCESS_TOKEN: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
@@ -22,11 +24,13 @@ jobs:
         id: build-number
         run: echo "BUILD_NUMBER=$(date '+%d.%m.%Y.%H.%M.%S')" >> $GITHUB_OUTPUT
       - name: Login to Docker Hub
+        if: env.DOCKERHUB_ACCESS_TOKEN != ''
         uses: docker/login-action@v3
         with:
           username: amigoscode
-          password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+          password: ${{ env.DOCKERHUB_ACCESS_TOKEN }}
       - name: Docker Build and push
+        if: env.DOCKERHUB_ACCESS_TOKEN != ''
         run: |
           chmod +x ../../.ci/build-publish.sh
           USERNAME=amigoscode \
@@ -35,6 +39,7 @@ jobs:
           ../../.ci/build-publish.sh . \
             --build-arg api_base_url=http://amigoscodeapi-env.eba-ymxutmev.eu-west-1.elasticbeanstalk.com:8080
       - name: Update Dockerrun.aws.json react image tag with new build number
+        if: env.DOCKERHUB_ACCESS_TOKEN != ''
         run: |
           echo "Dockerrun.aws.json before updating tag"
           cat ../../Dockerrun.aws.json
@@ -42,6 +47,7 @@ jobs:
           echo "Dockerrun.aws.json after updating tag"
           cat ../../Dockerrun.aws.json
       - name: Deploy to Elastic Beanstalk
+        if: env.DOCKERHUB_ACCESS_TOKEN != ''
         uses: einaregilsson/beanstalk-deploy@v21
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -54,6 +60,7 @@ jobs:
           deployment_package: Dockerrun.aws.json
           wait_for_environment_recovery: 60
       - name: Commit and push Dockerrun.aws.json
+        if: env.DOCKERHUB_ACCESS_TOKEN != ''
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
