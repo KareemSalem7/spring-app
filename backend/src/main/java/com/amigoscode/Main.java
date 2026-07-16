@@ -50,7 +50,7 @@ public class Main {
                 "Kareem"
         );
 
-        System.out.println("Hooray: " + new String(obj));
+        System.out.println("Hey: " + new String(obj));
     }
 
     private static void createRandomCustomer(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
