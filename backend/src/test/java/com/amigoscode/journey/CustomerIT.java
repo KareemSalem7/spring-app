@@ -26,7 +26,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT)
+@SpringBootTest(
+        webEnvironment = RANDOM_PORT,
+        properties = "aws.s3.mock=true"
+)
 public class CustomerIT {
 
     @Autowired
