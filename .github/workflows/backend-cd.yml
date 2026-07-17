@@ -42,7 +42,7 @@ jobs:
         if: env.DOCKERHUB_ACCESS_TOKEN != ''
         uses: docker/login-action@v3
         with:
-          username: amigoscode
+          username: salemapps
           password: ${{ env.DOCKERHUB_ACCESS_TOKEN }}
       - name: Set build number
         id: build-number
@@ -59,7 +59,7 @@ jobs:
         run: |
           echo "Dockerrun.aws.json before updating tag"
           cat ../Dockerrun.aws.json
-          sed -i -E 's_(amigoscode/amigoscode-api:)([^"]*)_\1'${{steps.build-number.outputs.BUILD_NUMBER}}'_' ../Dockerrun.aws.json
+          sed -i -E 's_(salemapps/amigoscode-api:)([^"]*)_\1'${{steps.build-number.outputs.BUILD_NUMBER}}'_' ../Dockerrun.aws.json
           echo "Dockerrun.aws.json after updating tag"
           cat ../Dockerrun.aws.json
       - name: Deploy to Elastic Beanstalk
