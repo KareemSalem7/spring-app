@@ -1,5 +1,8 @@
 name: CD - Deploy Backend
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   push:
