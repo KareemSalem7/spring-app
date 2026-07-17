@@ -1,23 +1,18 @@
 {
-  "AWSEBDockerrunVersion": 2,
-  "containerDefinitions": [
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "salemapps/amigoscode-api:20.04.2023.13.39.03",
+    "Update": "true"
+  },
+  "Ports": [
     {
-      "name": "amigoscode-api",
-      "image": "salemapps/amigoscode-api:20.04.2023.13.39.03",
-      "essential": true,
-      "memory": 512,
-      "portMappings": [
-        {
-          "hostPort": 80,
-          "containerPort": 8080
-        }
-      ],
-      "environment": [
-        {
-          "name": "SPRING_PROFILES_ACTIVE",
-          "value": "test"
-        }
-      ]
+      "ContainerPort": 8080
+    }
+  ],
+  "Environment": [
+    {
+      "Name": "SPRING_PROFILES_ACTIVE",
+      "Value": "test"
     }
   ]
 }
