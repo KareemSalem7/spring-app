@@ -72,7 +72,7 @@ jobs:
           environment_name: ${{ secrets.EB_ENVIRONMENT_NAME }}
           version_label: ${{ steps.build-number.outputs.BUILD_NUMBER }}
           version_description: ${{ github.SHA }}
-          region: ${{ secrets.EB_REGION }}
+          region: ca-central-1
           deployment_package: Dockerrun.aws.json
       - name: Commit and push Dockerrun.aws.json
         if: env.DOCKERHUB_ACCESS_TOKEN != ''
