@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "salemapps/amigoscode-api:17.07.2026.06.27.54",
+    "Name": "salemapps/amigoscode-api:18.07.2026.18.42.52",
     "Update": "true"
   },
   "Ports": [
